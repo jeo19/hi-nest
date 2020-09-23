@@ -11,7 +11,7 @@ export class AppController {
   }
 
   @Get('/hello')
-  sayHello():string{
-    return "Hello Everybody."
+  sayHello(): string {
+    return this.appService.getHi();
   }
 }
