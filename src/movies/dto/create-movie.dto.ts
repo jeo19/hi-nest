@@ -1,4 +1,4 @@
-import { IsString, IsNumber } from 'class-validator';
+import { IsString, IsNumber, IsOptional } from 'class-validator';
 import { isString } from 'util';
 export class CreateMovieDto {
   @IsString()
@@ -7,6 +7,7 @@ export class CreateMovieDto {
   @IsNumber()
   readonly year: number;
 
-  @IsString({ each: true })
+  @IsOptional()
+  @IsString({ each: true }) //Check if each value type of an array is a string
   readonly genres: string[];
 }
