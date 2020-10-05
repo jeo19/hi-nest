@@ -66,4 +66,17 @@ describe('MoviesService', () => {
       }
     });
   });
+
+  describe('create', () => {
+    it('should create a movie', () => {
+      const beforeCreate = service.getAll().length;
+      service.create({
+        title: 'Mulan Movie',
+        year: 2020,
+        genres: ['history', 'love'],
+      });
+      const afterCreate = service.getAll().length;
+      expect(afterCreate).toBeGreaterThan(beforeCreate);
+    });
+  });
 });
