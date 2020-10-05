@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { MoviesService } from './movies.service';
 import { NotFoundException } from '@nestjs/common';
+import { Server } from 'http';
 describe('MoviesService', () => {
   let service: MoviesService;
 
@@ -41,6 +42,20 @@ describe('MoviesService', () => {
         expect(e).toBeInstanceOf(NotFoundException);
         expect(e.message).toEqual('Movie with ID 999 not found.');
       }
+    });
+  });
+
+  describe('deleteOne', () => {
+    it('deletes a movie', () => {
+      service.create({
+        title: 'delete Movie',
+        year: 2020,
+        genres: ['comic', 'love'],
+      });
+      const allMovies = service.getAll();
+      service.deleteOne(1);
+      const afterDelete = service.getAll();
+      expect(afterDelete.length).toEqual(allMovies.length - 1);
     });
   });
 });
