@@ -52,10 +52,10 @@ describe('MoviesService', () => {
         year: 2020,
         genres: ['comic', 'love'],
       });
-      const allMovies = service.getAll();
+      const beforeDelete = service.getAll();
       service.deleteOne(1);
-      const afterDelete = service.getAll();
-      expect(afterDelete.length).toEqual(allMovies.length - 1);
+      const afterDelete = service.getAll().length;
+      expect(afterDelete).toBeLessThan(beforeDelete.length);
     });
   });
 });
