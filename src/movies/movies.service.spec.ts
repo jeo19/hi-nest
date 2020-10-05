@@ -57,5 +57,13 @@ describe('MoviesService', () => {
       const afterDelete = service.getAll().length;
       expect(afterDelete).toBeLessThan(beforeDelete.length);
     });
+    it('should be return 404 error', () => {
+      try {
+        service.deleteOne(999);
+      } catch (e) {
+        expect(e).toBeInstanceOf(NotFoundException);
+        expect(e.message).toEqual('Movie with ID 999 not found.');
+      }
+    });
   });
 });
