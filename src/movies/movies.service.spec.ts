@@ -91,5 +91,12 @@ describe('MoviesService', () => {
       const movie = service.getOne(1);
       expect(movie.title).toEqual('updated a movie');
     });
+    it('should throw a NotFoundException', () => {
+      try {
+        service.update(999, {});
+      } catch (e) {
+        expect(e).toBeInstanceOf(NotFoundException);
+      }
+    });
   });
 });
