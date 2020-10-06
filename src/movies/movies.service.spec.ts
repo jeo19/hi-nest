@@ -48,7 +48,7 @@ describe('MoviesService', () => {
   describe('deleteOne', () => {
     it('deletes a movie', () => {
       service.create({
-        title: 'delete Movie',
+        title: 'delete a movie',
         year: 2020,
         genres: ['comic', 'love'],
       });
@@ -77,6 +77,19 @@ describe('MoviesService', () => {
       });
       const afterCreate = service.getAll().length;
       expect(afterCreate).toBeGreaterThan(beforeCreate);
+    });
+  });
+
+  describe('update', () => {
+    it('should be update a movie', () => {
+      service.create({
+        title: 'test a movie',
+        year: 2020,
+        genres: ['comic', 'love'],
+      });
+      service.update(1, { title: 'updated a movie' });
+      const movie = service.getOne(1);
+      expect(movie.title).toEqual('updated a movie');
     });
   });
 });
