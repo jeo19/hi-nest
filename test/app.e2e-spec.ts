@@ -37,7 +37,7 @@ describe('AppController (e2e)', () => {
         .expect([]);
     });
 
-    it('POST', () => {
+    it('POST 201', () => {
       return request(app.getHttpServer())
         .post('/movies')
         .send({
@@ -47,8 +47,19 @@ describe('AppController (e2e)', () => {
         })
         .expect(201);
     });
+    it('POST 400', () => {
+      return request(app.getHttpServer())
+        .post('/movies')
+        .send({
+          title: 'Tenet',
+          year: 2020,
+          genres: ['fantasic', 'history'],
+          other: 'thing',
+        })
+        .expect(400);
+    });
 
-    it('DELETE', () => {
+    it('DELETE 404', () => {
       return request(app.getHttpServer())
         .delete('/movies')
         .expect(404);
@@ -66,10 +77,15 @@ describe('AppController (e2e)', () => {
         .get('/movies/999')
         .expect(404);
     });
-    it('PATCH', () => {
+    it('PATCH 200', () => {
       return request(app.getHttpServer())
         .patch('/movies/1')
-        .send({ title: 'waiting for me' })
+        .send({ title: 'Updated movie' })
+        .expect(200);
+    });
+    it('DELETE 200', () => {
+      return request(app.getHttpServer())
+        .delete('/movies/1')
         .expect(200);
     });
   });
