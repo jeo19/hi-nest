@@ -61,7 +61,16 @@ describe('AppController (e2e)', () => {
         .get('/movies/1')
         .expect(200);
     });
-    it.todo('DELETE');
-    it.todo('PATCH');
+    it('GET 404', () => {
+      return request(app.getHttpServer())
+        .get('/movies/999')
+        .expect(404);
+    });
+    it('PATCH', () => {
+      return request(app.getHttpServer())
+        .patch('/movies/1')
+        .send({ title: 'waiting for me' })
+        .expect(200);
+    });
   });
 });
